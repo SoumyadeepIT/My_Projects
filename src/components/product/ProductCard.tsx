@@ -10,6 +10,14 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
   return (
     <Card className="h-full" hoverable>
       <Link to={`/product/${product.id}`}>
@@ -40,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               {product.category}
             </Badge>
           </div>
-          <p className="mt-1 text-lg font-semibold text-primary-600">${product.price.toFixed(2)}</p>
+          <p className="mt-1 text-lg font-semibold text-primary-600">{formatPrice(product.price)}</p>
           <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.description}</p>
           <div className="mt-2 flex items-center">
             <div className="flex items-center">
